@@ -5,7 +5,7 @@
     "dev": "node -e 'import(\"barely-a-dev-server\").then(s => s.barelyServe({entryRoot: \"src\"}))'"
   },
   "dependencies": {
-    "cubing": "^0.25.2"
+    "cubing": "^0.26.1"
   },
   "devDependencies": {
     "barely-a-dev-server": "^0.2.6"

@@ -16,6 +16,8 @@ class App {
     this.cutdir.addEventListener("change", () => { this.updateShapes(); });
     this.cut.addEventListener("change", () => { this.updateShapes(); });
     this.cut.addEventListener("input", () => { this.updateShapes(); });
+
+    this.twistyPlayer.experimentalSetFlashLevel("none");
   }
 
   updateShapes(): void {
