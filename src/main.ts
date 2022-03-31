@@ -1,4 +1,5 @@
 import { TwistyAlgViewer, TwistyPlayer } from "cubing/twisty";
+import "cubing/twisty";
 
 class App {
   // Example of getting an element from the page.
