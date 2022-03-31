@@ -7,3 +7,8 @@ html, body {
   gap: 1em;
   font-family: sans-serif;
 }
+twisty-player {
+  padding: 10px;
+  overflow: auto;
+  resize: both;
+}

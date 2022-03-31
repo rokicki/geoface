@@ -7,27 +7,32 @@ class App {
   cutdir: HTMLSelectElement = document.querySelector("#cutdir");
   geo: HTMLInputElement = document.querySelector("#geo");
   cut: HTMLInputElement = document.querySelector("#cut");
-  // Example of creating a new element and adding it to the page.
+//  Example of creating a new element and adding it to the page.
   twistyAlgViewer = document.body.appendChild(
     new TwistyAlgViewer({ twistyPlayer: this.twistyPlayer })
   );
   constructor() {
     this.shape.addEventListener("change", () => { this.updateShapes(); });
     this.cutdir.addEventListener("change", () => { this.updateShapes(); });
-    this.cut.addEventListener("change", () => { this.updateShapes(); });
-    this.cut.addEventListener("input", () => { this.updateShapes(); });
-
+    this.cut.addEventListener("change", () => { this.updateShapes(this.cut.value); });
+    this.cut.addEventListener("input", () => { this.updateShapes(this.cut.value); });
+    this.geo.addEventListener("input", () => { this.updateShapes(this.geo.value); });
     this.twistyPlayer.experimentalSetFlashLevel("none");
   }
 
-  updateShapes(): void {
+  updateShapes(newval?: string): void {
+    if (newval !== undefined) {
+      this.cut.value = newval;
+      this.geo.value = newval;
+    } else {
+      this.twistyPlayer.alg = "";
+    }
     const geo = this.shape.value + " " + this.cutdir.value + " " + this.cut.value;
-    this.geo.value = geo;
-    this.updatePuzzle();
+    this.updatePuzzle(geo);
   }
 
-  updatePuzzle(): void {
-    this.twistyPlayer.experimentalPuzzleDescription = this.geo.value;
+  updatePuzzle(geo: string): void {
+    this.twistyPlayer.experimentalPuzzleDescription = geo;
   }
 }
 
