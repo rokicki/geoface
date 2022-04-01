@@ -30,7 +30,7 @@ class App {
     } else {
       this.twistyPlayer.alg = "";
     }
-    const geo = this.shape.value + " " + this.cutdir.value + " " + this.cut.value;
+    const geo = this.shape.value + " " + this.cutdir.value + " " + this.geo.value;
     this.updatePuzzle(geo);
   }
 
@@ -116,4 +116,3 @@ const keypts = {
   ov: [0, 0.433012701892219, 0.577350269189626, 0.692933086751677,
        0.8660254038],
   };
-  
