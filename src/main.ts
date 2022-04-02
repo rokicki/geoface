@@ -15,34 +15,37 @@ class App {
   constructor() {
     this.shape.addEventListener("change", () => { this.updateShapes(); });
     this.cutdir.addEventListener("change", () => { this.updateShapes(); });
-    this.cut.addEventListener("change", () => { this.updateShapes(this.cut.value); });
-    this.cut.addEventListener("input", () => { this.updateShapes(this.cut.value); });
-    this.geo.addEventListener("input", () => { this.updateShapes(this.geo.value); });
-    document.querySelector("#clean").addEventListener("click",
-      () => { this.clean(); })
+    this.cut.addEventListener("change", () => { this.updateSlider(this.cut.value); });
+    this.cut.addEventListener("input", () => { this.updateSlider(this.cut.value); });
+    this.geo.addEventListener("input", () => { this.updateText(this.geo.value); });
     this.twistyPlayer.experimentalSetFlashLevel("none");
   }
 
-  updateShapes(newval?: string): void {
-    if (newval !== undefined) {
-      this.cut.value = newval;
-      this.geo.value = newval;
-    } else {
-      this.twistyPlayer.alg = "";
-    }
+  updateShapes(): void {
     const geo = this.shape.value + " " + this.cutdir.value + " " + this.geo.value;
     this.updatePuzzle(geo);
+  }
+
+  updateSlider(val: string): void {
+    const oldval = +val;
+    const cleaned = this.clean(oldval);
+    this.geo.value = ""+cleaned;
+    this.updateShapes();
+  }
+
+  updateText(val: string): void {
+    this.cut.value = val;
+    this.updateShapes();
   }
 
   updatePuzzle(geo: string): void {
     this.twistyPlayer.experimentalPuzzleDescription = geo;
   }
 
-  clean(): void {
+  clean(ival: number): number {
     const goodpts = keypts[this.shape.value + this.cutdir.value] ;
-    const eps = 0.05 ;
+    const eps = 0.01 ;
     let best = 1000 ;
-    const ival = +this.cut.value;
     for (const v of goodpts) {
       const delta = Math.abs(v - ival);
       if (Math.abs(v - ival) < eps && Math.abs(v - ival) < Math.abs(best - ival)) {
@@ -50,8 +53,9 @@ class App {
       }
     }
     if (best != 1000) {
-      this.updateShapes(""+best);
+      return best;
     }
+    return ival;
   }
 }
 
